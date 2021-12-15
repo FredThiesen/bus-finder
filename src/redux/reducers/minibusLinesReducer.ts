@@ -5,7 +5,7 @@ export const minibusLinesReducer = (
   action: {type: string; payload: MinibusLineProps[]},
 ) => {
   switch (action.type) {
-    case 'SAVE_JITNEYS':
+    case 'SAVE_MINIBUS_LINES':
       return action.payload;
     default:
       return state;

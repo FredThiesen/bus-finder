@@ -1,6 +1,6 @@
-import {MinibusLines} from '../../interfaces/minibusLineProps';
+import {MinibusLineProps} from '../../interfaces/minibusLineProps';
 
-export const saveJitneys = (jitneys: MinibusLines[]) => ({
-  type: 'SAVE_JITNEYS',
-  payload: jitneys,
+export const saveMinibusLines = (minibusLines: MinibusLineProps[]) => ({
+  type: 'SAVE_MINIBUS_LINES',
+  payload: minibusLines,
 });

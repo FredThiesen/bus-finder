@@ -7,17 +7,31 @@ import {BusLineProps} from '../../interfaces/busLineProps';
 import {MinibusLineProps} from '../../interfaces/minibusLineProps';
 import {saveBusLines} from '../../redux/actions/busLinesActions';
 import {saveItineraries} from '../../redux/actions/itinerariesActions';
+import {saveMinibusLines} from '../../redux/actions/minibusLinesActions';
 import {fetchBusLines} from '../../services/getBusLines';
 import {fetchItineraries} from '../../services/getItineraries';
 import {fetchMinibusLines} from '../../services/getMinibusLines';
+import MapSvg from '../../assets/svg/map.svg';
 import {
+  CardImage,
   Container,
+  InputContainer,
+  InputLabel,
+  LineCard,
+  LineCardImageContainer,
+  LineCardText,
+  LineCardTextContainer,
+  MapButton,
+  MapButtonContainer,
+  NestedText,
+  StyledInput,
   TabButton,
   TabButtonContainer,
   TabContainer,
   TabImage,
   TabText,
 } from './styles';
+import {COLORS} from '../../COLORS';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -25,32 +39,54 @@ export default function Home() {
   const [isBusTabActive, setBusTabActive] = React.useState(false);
   const [isMinibusTabActive, setMinibusTabActive] = React.useState(false);
   const [isGeralTabActive, setGeralTabActive] = React.useState(true);
-  const busLines: BusLineProps[] = useSelector((state: any) => state.busLines);
+
+  const [searchValue, setSearchValue] = React.useState<string>('');
+
+  const [mergedLines, setMergedLines] = React.useState<BusLineProps[]>([]);
+  const [filteredBusLines, setFilteredBusLines] = React.useState<
+    BusLineProps[]
+  >([]);
+  const [filteredMinibusLines, setFilteredMinibusLines] = React.useState<
+    BusLineProps[]
+  >([]);
+  const [filteredMergedLines, setFilteredMergedLines] = React.useState<
+    BusLineProps[]
+  >([]);
+  const {busLines, minibusLines} = useSelector((state: any) => state);
 
   const getBusLines = async () => {
-    const busLinesResponse: BusLineProps[] | null = await fetchBusLines();
-    return busLinesResponse;
+    const busLinesResponse = await fetchBusLines();
+    if (busLinesResponse) {
+      dispatch(saveBusLines(busLinesResponse));
+    } else {
+      Alert.alert('Erro', 'Não foi possível carregar as linhas de ônibus.');
+    }
   };
 
   const getMinibusLines = async () => {
     const minibusLinesResponse = await fetchMinibusLines();
-    return minibusLinesResponse;
+    if (minibusLinesResponse) {
+      dispatch(saveMinibusLines(minibusLinesResponse));
+    } else {
+      Alert.alert('Erro', 'Não foi possível carregar as linhas de lotação.');
+    }
   };
 
   const getItineraries = async (id: string) => {
-    console.log('id', id);
     const itineraries = await fetchItineraries(id);
     return itineraries;
   };
 
-  const handleFetchItinerary = async () => {
-    getItineraries('80').then(itineraries => {
+  const handleFetchItinerary = async (id: string) => {
+    getItineraries(id).then(itineraries => {
       if (itineraries) {
         dispatch(saveItineraries(itineraries));
+        //@ts-ignore
+        navigation.navigate('maps');
+      } else {
+        Alert.alert('Erro', 'Não foi possível carregar o itinerário.');
       }
     });
-    //@ts-ignore
-    navigation.navigate('maps');
   };
 
   const selectTab = (tab: string) => {
@@ -73,25 +109,79 @@ export default function Home() {
     }
   };
 
-  const renderLine = (line: BusLineProps | MinibusLineProps) => <></>;
+  const handleSearch = () => {
+    const filteredBusLines = busLines.filter(
+      (busLine: BusLineProps) =>
+        busLine.nome.toLowerCase().includes(searchValue.toLowerCase()) ||
+        busLine.codigo.toLowerCase().includes(searchValue.toLowerCase()),
+    );
+    const filteredMinibusLines = minibusLines.filter(
+      (minibusLine: BusLineProps) =>
+        minibusLine.nome.toLowerCase().includes(searchValue.toLowerCase()) ||
+        minibusLine.codigo.toLowerCase().includes(searchValue.toLowerCase()),
+    );
+    setFilteredBusLines(filteredBusLines);
+    setFilteredMinibusLines(filteredMinibusLines);
+    setFilteredMergedLines([...filteredBusLines, ...filteredMinibusLines]);
+  };
+
+  const renderLine = (line: BusLineProps | MinibusLineProps) => (
+    <>
+      <LineCard>
+        <LineCardImageContainer>
+          {line.id.length > 3 ? (
+            <CardImage source={require('../../assets/images/bus.png')} />
+          ) : (
+            <CardImage source={require('../../assets/images/minibus.png')} />
+          )}
+        </LineCardImageContainer>
+        <LineCardTextContainer>
+          <LineCardText>
+            <NestedText>Linha: </NestedText>
+            {line.nome}
+          </LineCardText>
+          <LineCardText>
+            <NestedText>Código: </NestedText>
+            {line.codigo}
+          </LineCardText>
+        </LineCardTextContainer>
+        <MapButtonContainer>
+          <MapButton onPress={() => handleFetchItinerary(line.id)}>
+            <MapSvg style={{transform: [{scale: 0.65}]}} />
+            <LineCardText fontSize="13px" color={COLORS.primary}>
+              <NestedText>Itinerário</NestedText>
+            </LineCardText>
+          </MapButton>
+        </MapButtonContainer>
+      </LineCard>
+    </>
+  );
 
   useEffect(() => {
-    getBusLines().then(busLines => {
-      if (busLines) {
-        dispatch(saveBusLines(busLines));
-      } else {
-        Alert.alert('Erro', 'Não foi possível carregar as linhas de ônibus.');
-      }
-    });
-
-    getMinibusLines().then(minibusLines => {
-      if (minibusLines) {
-        dispatch(saveBusLines(minibusLines));
-      } else {
-        Alert.alert('Erro', 'Não foi possível carregar as linhas de lotação.');
-      }
-    });
+    getBusLines();
+    getMinibusLines();
   }, []);
+
+  useEffect(() => {
+    if (busLines && minibusLines) {
+      if (busLines.length > 0 && minibusLines.length > 0) {
+        setMergedLines(minibusLines.concat(busLines));
+        setFilteredMergedLines(minibusLines.concat(busLines));
+        setFilteredBusLines(busLines);
+        setFilteredMinibusLines(minibusLines);
+      }
+    }
+  }, [busLines, minibusLines]);
+
+  useEffect(() => {
+    if (searchValue.length > 0) {
+      handleSearch();
+    } else {
+      setFilteredBusLines(busLines);
+      setFilteredMinibusLines(minibusLines);
+      setFilteredMergedLines(mergedLines);
+    }
+  }, [searchValue]);
 
   return (
     <SafeAreaView>
@@ -132,21 +222,50 @@ export default function Home() {
           </TabButtonContainer>
         </TabContainer>
 
-        <FlatList
-          data={busLines}
-          renderItem={({item}) => renderLine(item)}
-          keyExtractor={item => item.id}
-        />
-        {/* <TouchableOpacity
-          //@ts-ignore
-          onPress={handleFetchItinerary}
-          style={{
-            width: 40,
-            height: 40,
-            backgroundColor: '#ccc',
-          }}>
-          <Text>Ver itinerário</Text>
-        </TouchableOpacity> */}
+        <InputContainer>
+          <InputLabel>
+            {isGeralTabActive
+              ? 'Buscar linha de transporte'
+              : isBusTabActive
+              ? 'Buscar linha de ônibus'
+              : 'Buscar linha de lotação'}
+          </InputLabel>
+          <StyledInput
+            placeholder={'Digite o nome ou o código da linha'}
+            onChange={e => setSearchValue(e.nativeEvent.text)}
+          />
+        </InputContainer>
+
+        {isMinibusTabActive && (
+          <FlatList
+            data={filteredMinibusLines}
+            renderItem={({item}) => renderLine(item)}
+            keyExtractor={item => item.id}
+            maxToRenderPerBatch={10}
+            initialNumToRender={10}
+            removeClippedSubviews
+          />
+        )}
+        {isBusTabActive && (
+          <FlatList
+            data={filteredBusLines}
+            renderItem={({item}) => renderLine(item)}
+            keyExtractor={item => item.id}
+            maxToRenderPerBatch={10}
+            initialNumToRender={10}
+            removeClippedSubviews
+          />
+        )}
+        {isGeralTabActive && (
+          <FlatList
+            data={filteredMergedLines}
+            renderItem={({item}) => renderLine(item)}
+            keyExtractor={item => item.id}
+            initialNumToRender={30}
+            maxToRenderPerBatch={10}
+            removeClippedSubviews
+          />
+        )}
       </Container>
     </SafeAreaView>
   );
