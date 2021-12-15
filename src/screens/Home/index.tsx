@@ -1,9 +1,10 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useEffect} from 'react';
-import {Alert, Text, TouchableOpacity} from 'react-native';
+import {Alert, FlatList, Text, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import {BusLineProps} from '../../interfaces/busLineProps';
+import {MinibusLineProps} from '../../interfaces/minibusLineProps';
 import {saveBusLines} from '../../redux/actions/busLinesActions';
 import {saveItineraries} from '../../redux/actions/itinerariesActions';
 import {fetchBusLines} from '../../services/getBusLines';
@@ -72,6 +73,8 @@ export default function Home() {
     }
   };
 
+  const renderLine = (line: BusLineProps | MinibusLineProps) => <></>;
+
   useEffect(() => {
     getBusLines().then(busLines => {
       if (busLines) {
@@ -128,7 +131,13 @@ export default function Home() {
             <TabText isActive={isMinibusTabActive}>Lotação</TabText>
           </TabButtonContainer>
         </TabContainer>
-        <TouchableOpacity
+
+        <FlatList
+          data={busLines}
+          renderItem={({item}) => renderLine(item)}
+          keyExtractor={item => item.id}
+        />
+        {/* <TouchableOpacity
           //@ts-ignore
           onPress={handleFetchItinerary}
           style={{
@@ -137,7 +146,7 @@ export default function Home() {
             backgroundColor: '#ccc',
           }}>
           <Text>Ver itinerário</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </Container>
     </SafeAreaView>
   );

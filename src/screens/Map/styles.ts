@@ -20,11 +20,6 @@ export const MapContainer = styled(View)`
   width: 100%;
 `;
 
-export const Map = styled(View)`
-  height: 100%;
-  width: 100%;
-`;
-
 export const DetailsContainer = styled(View)`
   height: 25%;
   width: 100%;

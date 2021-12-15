@@ -1,8 +1,8 @@
-import {MinibusLines} from '../../interfaces/minibusLineProps';
+import {MinibusLineProps} from '../../interfaces/minibusLineProps';
 
 export const minibusLinesReducer = (
-  state: MinibusLines[] | null = null,
-  action: {type: string; payload: MinibusLines[]},
+  state: MinibusLineProps[] | null = null,
+  action: {type: string; payload: MinibusLineProps[]},
 ) => {
   switch (action.type) {
     case 'SAVE_JITNEYS':

@@ -1,5 +1,5 @@
-export interface MinibusLines {
+export interface MinibusLineProps {
   id: string;
-  code: string;
-  name: string;
+  nome: string;
+  codigo: string;
 }

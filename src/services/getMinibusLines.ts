@@ -1,10 +1,11 @@
 import axios from 'axios';
 import {BusLineProps} from '../interfaces/busLineProps';
+import {MinibusLineProps} from '../interfaces/minibusLineProps';
 const url =
   'http://www.poatransporte.com.br/php/facades/process.php?a=nc&p=%&t=l';
 
 export const fetchMinibusLines = async () => {
-  const response = await axios.get<BusLineProps[]>(url);
+  const response = await axios.get<MinibusLineProps[]>(url);
   if (response.status !== 200) {
     return null;
   }
