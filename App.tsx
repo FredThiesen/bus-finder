@@ -16,6 +16,9 @@ import AppStack from './src/navigations/appStack';
 import {saveBusLines} from './src/redux/actions/busLinesActions';
 import store from './src/redux/store/store';
 import {fetchBusLines} from './src/services/getBusLines';
+import {LogBox} from 'react-native';
+
+LogBox.ignoreAllLogs(true);
 
 // const getBusLines = async () => {
 //   const busLines = await fetchBusLines();

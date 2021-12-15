@@ -1,7 +1,7 @@
 import {MinibusLines} from '../../interfaces/minibusLineProps';
 
 export const minibusLinesReducer = (
-  state: MinibusLines[] = [],
+  state: MinibusLines[] | null = null,
   action: {type: string; payload: MinibusLines[]},
 ) => {
   switch (action.type) {

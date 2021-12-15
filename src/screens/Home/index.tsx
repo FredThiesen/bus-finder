@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useEffect} from 'react';
-import {View, Text, TouchableOpacity, Alert, Image} from 'react-native';
+import {Alert, Text, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import {BusLineProps} from '../../interfaces/busLineProps';
@@ -27,13 +27,13 @@ export default function Home() {
   const busLines: BusLineProps[] = useSelector((state: any) => state.busLines);
 
   const getBusLines = async () => {
-    const busLines: BusLineProps[] | null = await fetchBusLines();
-    return busLines;
+    const busLinesResponse: BusLineProps[] | null = await fetchBusLines();
+    return busLinesResponse;
   };
 
   const getMinibusLines = async () => {
-    const minibusLines = await fetchMinibusLines();
-    return minibusLines;
+    const minibusLinesResponse = await fetchMinibusLines();
+    return minibusLinesResponse;
   };
 
   const getItineraries = async (id: string) => {

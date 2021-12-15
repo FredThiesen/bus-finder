@@ -1,7 +1,7 @@
 import {BusLineProps} from '../../interfaces/busLineProps';
 
 export const busLinesReducer = (
-  state: BusLineProps[] = [],
+  state: BusLineProps[] | null = null,
   action: {type: string; payload: BusLineProps[]},
 ) => {
   switch (action.type) {
