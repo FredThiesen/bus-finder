@@ -1,6 +1,12 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useEffect} from 'react';
-import {Alert, FlatList, Text, TouchableOpacity} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import {BusLineProps} from '../../interfaces/busLineProps';
@@ -36,6 +42,7 @@ import {COLORS} from '../../COLORS';
 export default function Home() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [loading, setLoading] = React.useState(false);
   const [isBusTabActive, setBusTabActive] = React.useState(false);
   const [isMinibusTabActive, setMinibusTabActive] = React.useState(false);
   const [isGeralTabActive, setGeralTabActive] = React.useState(true);
@@ -158,6 +165,7 @@ export default function Home() {
   );
 
   useEffect(() => {
+    setLoading(true);
     getBusLines();
     getMinibusLines();
   }, []);
@@ -169,6 +177,7 @@ export default function Home() {
         setFilteredMergedLines(minibusLines.concat(busLines));
         setFilteredBusLines(busLines);
         setFilteredMinibusLines(minibusLines);
+        setLoading(false);
       }
     }
   }, [busLines, minibusLines]);
@@ -235,6 +244,14 @@ export default function Home() {
             onChange={e => setSearchValue(e.nativeEvent.text)}
           />
         </InputContainer>
+
+        {loading && (
+          <ActivityIndicator
+            style={{marginTop: 50}}
+            size={100}
+            color={COLORS.primary}
+          />
+        )}
 
         {isMinibusTabActive && (
           <FlatList
