@@ -4,4 +4,5 @@ export const COLORS = {
   neutralGray: '#D6E3F8',
   neutralBlack: '#32373B',
   white: '#FFFFFF',
+  yellow: '#F1D302',
 };

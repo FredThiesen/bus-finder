@@ -1,9 +1,11 @@
+import {useNavigation} from '@react-navigation/core';
 import React, {useEffect} from 'react';
 import {View, Text, TouchableOpacity, Alert, Image} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import {BusLineProps} from '../../interfaces/busLineProps';
 import {saveBusLines} from '../../redux/actions/busLinesActions';
+import {saveItineraries} from '../../redux/actions/itinerariesActions';
 import {fetchBusLines} from '../../services/getBusLines';
 import {fetchItineraries} from '../../services/getItineraries';
 import {fetchMinibusLines} from '../../services/getMinibusLines';
@@ -18,6 +20,7 @@ import {
 
 export default function Home() {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [isBusTabActive, setBusTabActive] = React.useState(false);
   const [isMinibusTabActive, setMinibusTabActive] = React.useState(false);
   const [isGeralTabActive, setGeralTabActive] = React.useState(true);
@@ -32,10 +35,21 @@ export default function Home() {
     const minibusLines = await fetchMinibusLines();
     return minibusLines;
   };
+
   const getItineraries = async (id: string) => {
     console.log('id', id);
     const itineraries = await fetchItineraries(id);
     return itineraries;
+  };
+
+  const handleFetchItinerary = async () => {
+    getItineraries('80').then(itineraries => {
+      if (itineraries) {
+        dispatch(saveItineraries(itineraries));
+      }
+    });
+    //@ts-ignore
+    navigation.navigate('maps');
   };
 
   const selectTab = (tab: string) => {
@@ -57,6 +71,7 @@ export default function Home() {
         break;
     }
   };
+
   useEffect(() => {
     getBusLines().then(busLines => {
       if (busLines) {
@@ -82,7 +97,6 @@ export default function Home() {
           <TabButtonContainer>
             <TabButton
               isActive={isGeralTabActive}
-              left
               onPress={() => selectTab('geral')}>
               <TabImage
                 isActive={isGeralTabActive}
@@ -94,7 +108,6 @@ export default function Home() {
           <TabButtonContainer>
             <TabButton
               isActive={isBusTabActive}
-              left
               onPress={() => selectTab('bus')}>
               <TabImage
                 isActive={isBusTabActive}
@@ -106,7 +119,6 @@ export default function Home() {
           <TabButtonContainer>
             <TabButton
               isActive={isMinibusTabActive}
-              right
               onPress={() => selectTab('minibus')}>
               <TabImage
                 isActive={isMinibusTabActive}
@@ -116,6 +128,16 @@ export default function Home() {
             <TabText isActive={isMinibusTabActive}>Lotação</TabText>
           </TabButtonContainer>
         </TabContainer>
+        <TouchableOpacity
+          //@ts-ignore
+          onPress={handleFetchItinerary}
+          style={{
+            width: 40,
+            height: 40,
+            backgroundColor: '#ccc',
+          }}>
+          <Text>Ver itinerário</Text>
+        </TouchableOpacity>
       </Container>
     </SafeAreaView>
   );

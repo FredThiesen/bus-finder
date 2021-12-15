@@ -3,7 +3,9 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import styled from 'styled-components';
 import {COLORS} from '../../COLORS';
 
-const {width} = Dimensions.get('window');
+interface StyledProps {
+  isActive?: boolean;
+}
 
 export const Container = styled(View)`
   display: flex;
@@ -24,6 +26,7 @@ export const TabContainer = styled(View)`
   width: 100%;
   height: 70px;
   margin-top: 10px;
+  margin-bottom: 40px;
 `;
 export const TabButtonContainer = styled(View)`
   display: flex;
@@ -33,7 +36,7 @@ export const TabButtonContainer = styled(View)`
   height: 100%;
   width: auto;
 `;
-export const TabButton = styled(TouchableOpacity)<any>`
+export const TabButton = styled(TouchableOpacity)<StyledProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -42,20 +45,17 @@ export const TabButton = styled(TouchableOpacity)<any>`
   height: 100%;
   background: ${props =>
     props.isActive ? COLORS.primary : COLORS.neutralGray};
-  /* border-bottom-left-radius: ${props => (props.left ? '15px' : '0px')};
-  border-bottom-right-radius: ${props => (props.right ? '15px' : '0px')}; */
   border-radius: 15px;
   padding: 15px;
 `;
-export const TabImage = styled(Image)<any>`
+export const TabImage = styled(Image)<StyledProps>`
   width: 30px;
   aspect-ratio: 1;
   tint-color: ${props => (props.isActive ? COLORS.white : COLORS.neutralBlack)};
 `;
-export const TabText = styled(Text)<any>`
+export const TabText = styled(Text)<StyledProps>`
   font-size: 18px;
   color: ${props => (props.isActive ? COLORS.primary : COLORS.neutralBlack)};
-
   padding-left: 10px;
   padding-right: 10px;
 `;
