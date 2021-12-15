@@ -1,11 +1,11 @@
 import {combineReducers, createStore} from 'redux';
 import {busLinesReducer} from '../reducers/busLinesReducer';
 import {itinerariesReducer} from '../reducers/itinerariesReducer';
-import {jitneysReducer} from '../reducers/jitneysReducer';
+import {minibusLinesReducer} from '../reducers/minibusLinesReducer';
 
 const rootReducer = combineReducers({
   itineraries: itinerariesReducer,
-  jitneys: jitneysReducer,
+  minibusLines: minibusLinesReducer,
   busLines: busLinesReducer,
 });
 const store = createStore(rootReducer);
