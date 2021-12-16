@@ -1,6 +1,6 @@
 # Datapoa App
 Este aplicativo foi desenvolvido no período de 14/12/21 à 17/12/21. São utilizadas informações da API do [DataPoa](http://datapoa.com.br/group/about/mobilidade).   
-A partir dessas informações, são listadas as de linhas de ônibus e de lotações de Porto Alegre/RS.   
+A partir dessas informações, são listadas as linhas de ônibus e de lotações de Porto Alegre/RS.   
 A partir da listagem, é possível:
 - realizar buscas de linhas de ônibus ou lotação (ou os dois) por nome ou código; 
 - consultar o itinerário de cada linha; 
