@@ -206,7 +206,7 @@ export const LinkContainer = styled(View)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
+  width: 86%;
   height: auto;
   border-bottom-width: 1px;
   border-bottom-color: ${COLORS.neutralBlack};
