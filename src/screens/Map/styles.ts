@@ -32,6 +32,7 @@ export const MarkerContainer = styled(View)<MarkerProps>`
   justify-content: center;
   align-items: center;
   z-index: 1;
+  /* position: relative; */
 `;
 
 export const InnerMarkerCircle = styled(View)`
@@ -40,6 +41,15 @@ export const InnerMarkerCircle = styled(View)`
   border-radius: 9px;
   background: transparent;
   border: 3px solid ${COLORS.neutralBlack};
+`;
+
+export const MarkerLabel = styled(Text)`
+  position: absolute;
+  bottom: -110%;
+  font-size: 16px;
+  color: ${COLORS.neutralBlack};
+  z-index: 1;
+  elevation: 25;
 `;
 
 export const ButtonBack = styled(TouchableOpacity)`
@@ -142,13 +152,92 @@ export const DetailsButtonLabel = styled(Text)`
 `;
 
 export const DetailsModal = styled(Modal)`
-  width: 85%;
-  height: 85%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  background: ${COLORS.white};
+  /* background: ${COLORS.white}; */
   border-radius: 10px;
-
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+`;
+
+export const ModalContentContainer = styled(View)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+`;
+
+export const ModalTitle = styled(Text)`
+  font-size: 16px;
+  color: ${COLORS.neutralBlack};
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  align-self: center;
+`;
+export const ModalInfoContainer = styled(View)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 80%;
+  width: 70%;
+  padding: 5px;
+  background: ${COLORS.neutralGray};
+  border-radius: 20px;
+  opacity: 0.9;
+`;
+export const ModalInfoLabel = styled(Text)`
+  font-size: 16px;
+  color: ${COLORS.neutralBlack};
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  width: 100%;
+`;
+
+export const LinkContainer = styled(View)`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  height: auto;
+  border-bottom-width: 1px;
+  border-bottom-color: ${COLORS.neutralBlack};
+  padding: 2px;
+  /* padding: 5px; */
+`;
+
+export const LinkLabel = styled(Text)`
+  font-size: 14px;
+  color: ${COLORS.neutralBlack};
+  font-weight: normal;
+  margin-bottom: 5px;
+  margin-left: 10px;
+`;
+
+export const Link = styled(Text)`
+  font-size: 16px;
+  color: ${COLORS.primary};
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-decoration: underline;
+`;
+export const CloseButton = styled(TouchableOpacity)`
+  height: 36px;
+  width: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -5%;
+  right: -8%;
+  border-radius: 18px;
+  background: ${COLORS.neutralGray};
 `;

@@ -6,10 +6,12 @@ import React, {useEffect} from 'react';
 import {FlatList, Linking, Modal, Text} from 'react-native';
 import {useSelector} from 'react-redux';
 import BackSvg from '../../assets/svg/back.svg';
+import CloseSvg from '../../assets/svg/x.svg';
 import {COLORS} from '../../COLORS';
 import {ItineraryProps} from '../../interfaces/itineraryProps';
 import {
   ButtonBack,
+  CloseButton,
   Container,
   DetailsButton,
   DetailsButtonLabel,
@@ -22,8 +24,16 @@ import {
   DetailsRow,
   DetailsTitle,
   InnerMarkerCircle,
+  Link,
+  LinkContainer,
+  LinkLabel,
   MapContainer,
   MarkerContainer,
+  MarkerLabel,
+  ModalContentContainer,
+  ModalInfoContainer,
+  ModalInfoLabel,
+  ModalTitle,
   NestedText,
 } from './styles';
 
@@ -67,6 +77,7 @@ const Maps = () => {
           coordinate={itinerary.coords[0]}>
           <MarkerContainer background={COLORS.yellow}>
             <InnerMarkerCircle></InnerMarkerCircle>
+            {/* <MarkerLabel>Início</MarkerLabel> */}
           </MarkerContainer>
         </MapboxGL.PointAnnotation>
         <MapboxGL.PointAnnotation
@@ -86,22 +97,25 @@ const Maps = () => {
     setBounds(null);
     navigation.goBack();
   };
-
+  // linkArray.push(`geo:0,0?q=${coord[1]},${coord[0]}&z=15`);
   const initializeLinkArray = () => {
     const linkArray: string[] = [];
     itinerary.coords.forEach((coord: any, index: number) => {
-      linkArray.push(
-        `geo:${coord[1]},${coord[0]}q=${coord[1]},${coord[0]}?z=16`,
-      );
+      linkArray.push(`geo:1,1?q=${coord[1]},${coord[0]}&z=15`);
     });
     setLinkArray(linkArray);
   };
 
+  const handleModalVisibility = () => {
+    setModalVisible(!modalVisible);
+  };
+
   const renderLink = (link: string, index: number) => {
     return (
-      <Text style={{color: 'blue'}} onPress={() => Linking.openURL(link)}>
-        Parada {index + 1}
-      </Text>
+      <LinkContainer>
+        <LinkLabel>Parada {index + 1}</LinkLabel>
+        <Link onPress={() => Linking.openURL(link)}>Ver no mapa</Link>
+      </LinkContainer>
     );
   };
   useEffect(() => {
@@ -126,23 +140,28 @@ const Maps = () => {
   return (
     <Container>
       <DetailsModal
-        animationType="slide"
+        style={{flex: 1}}
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
-        <DetailsContainer>
-          <DetailsTitle>{itinerary.name}</DetailsTitle>
-          <FlatList
-            data={linkArray}
-            renderItem={({item, index}) => renderLink(item, index)}
-            keyExtractor={item => item}
-            maxToRenderPerBatch={10}
-            initialNumToRender={10}
-            removeClippedSubviews
-          />
-        </DetailsContainer>
+        onRequestClose={handleModalVisibility}>
+        <ModalContentContainer>
+          <ModalInfoContainer>
+            <CloseButton onPress={handleModalVisibility}>
+              <CloseSvg />
+            </CloseButton>
+            <ModalTitle>{itinerary.name}</ModalTitle>
+            <ModalInfoLabel>Paradas:</ModalInfoLabel>
+            <FlatList
+              style={{marginLeft: 10}}
+              data={linkArray}
+              renderItem={({item, index}) => renderLink(item, index)}
+              maxToRenderPerBatch={10}
+              initialNumToRender={10}
+              removeClippedSubviews
+            />
+          </ModalInfoContainer>
+        </ModalContentContainer>
       </DetailsModal>
       <MapContainer>
         <ButtonBack onPress={handleReturn}>
