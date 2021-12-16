@@ -10,10 +10,19 @@ import {ItineraryProps} from '../../interfaces/itineraryProps';
 import {
   ButtonBack,
   Container,
+  DetailsButton,
+  DetailsButtonLabel,
   DetailsContainer,
+  DetailsImage,
+  DetailsImageContainer,
+  DetailsInfoContainer,
+  DetailsLabel,
+  DetailsRow,
+  DetailsTitle,
   InnerMarkerCircle,
   MapContainer,
   MarkerContainer,
+  NestedText,
 } from './styles';
 
 MapboxGL.setAccessToken(
@@ -121,7 +130,43 @@ const Maps = () => {
           {shape && renderMarkers()}
         </MapboxGL.MapView>
       </MapContainer>
-      <DetailsContainer></DetailsContainer>
+      <DetailsContainer>
+        <DetailsTitle>{itinerary.name}</DetailsTitle>
+        <DetailsRow>
+          <DetailsImageContainer>
+            <DetailsLabel>
+              <NestedText>Tipo de transporte:</NestedText>
+            </DetailsLabel>
+            {itinerary.lineId.length > 3 && (
+              <>
+                <DetailsImage source={require('../../assets/images/bus.png')} />
+                <DetailsLabel color={COLORS.primary}>Ônibus</DetailsLabel>
+              </>
+            )}
+            {itinerary.lineId.length < 4 && (
+              <>
+                <DetailsImage
+                  source={require('../../assets/images/minibus.png')}
+                />
+                <DetailsLabel color={COLORS.primary}>Lotação</DetailsLabel>
+              </>
+            )}
+          </DetailsImageContainer>
+          <DetailsInfoContainer>
+            <DetailsLabel>
+              <NestedText>Código: </NestedText>
+              {itinerary.code}
+            </DetailsLabel>
+            <DetailsLabel>
+              <NestedText>Número de paradas: </NestedText>
+              {itinerary.coords.length}
+            </DetailsLabel>
+          </DetailsInfoContainer>
+        </DetailsRow>
+        <DetailsButton>
+          <DetailsButtonLabel>Ver paradas</DetailsButtonLabel>
+        </DetailsButton>
+      </DetailsContainer>
     </Container>
   );
 };
