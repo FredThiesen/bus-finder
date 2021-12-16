@@ -1,4 +1,4 @@
-# Datapoa App / Bus Finder
+# Bus Finder
 Este aplicativo foi desenvolvido no período de 14/12/21 à 17/12/21. São utilizadas informações da API do [DataPoa](http://datapoa.com.br/group/about/mobilidade).   
 A partir dessas informações, são listadas as linhas de ônibus e de lotações de Porto Alegre/RS.   
 A partir da listagem, é possível:
