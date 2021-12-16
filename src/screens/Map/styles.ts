@@ -189,7 +189,7 @@ export const ModalInfoContainer = styled(View)`
   width: 70%;
   padding: 5px;
   background: ${COLORS.neutralGray};
-  border-radius: 20px;
+  border-radius: 15px;
   opacity: 0.9;
 `;
 export const ModalInfoLabel = styled(Text)`
@@ -206,7 +206,7 @@ export const LinkContainer = styled(View)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
+  width: 90%;
   height: auto;
   border-bottom-width: 1px;
   border-bottom-color: ${COLORS.neutralBlack};
@@ -219,7 +219,7 @@ export const LinkLabel = styled(Text)`
   color: ${COLORS.neutralBlack};
   font-weight: normal;
   margin-bottom: 5px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 `;
 
 export const Link = styled(Text)`
@@ -227,6 +227,7 @@ export const Link = styled(Text)`
   color: ${COLORS.primary};
   font-weight: bold;
   margin-bottom: 5px;
+  margin-right: 5px;
   text-decoration: underline;
 `;
 export const CloseButton = styled(TouchableOpacity)`
@@ -236,7 +237,7 @@ export const CloseButton = styled(TouchableOpacity)`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: -5%;
+  top: -7%;
   right: -8%;
   border-radius: 18px;
   background: ${COLORS.neutralGray};

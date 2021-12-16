@@ -113,7 +113,7 @@ const Maps = () => {
   const renderLink = (link: string, index: number) => {
     return (
       <LinkContainer>
-        <LinkLabel>Parada {index + 1}</LinkLabel>
+        <LinkLabel>Localidade {index + 1}</LinkLabel>
         <Link onPress={() => Linking.openURL(link)}>Ver no mapa</Link>
       </LinkContainer>
     );
@@ -151,7 +151,7 @@ const Maps = () => {
               <CloseSvg />
             </CloseButton>
             <ModalTitle>{itinerary.name}</ModalTitle>
-            <ModalInfoLabel>Paradas:</ModalInfoLabel>
+            <ModalInfoLabel>Localidades:</ModalInfoLabel>
             <FlatList
               style={{marginLeft: 10}}
               data={linkArray}
@@ -218,14 +218,14 @@ const Maps = () => {
               {itinerary.code}
             </DetailsLabel>
             <DetailsLabel>
-              <NestedText>Número de paradas: </NestedText>
+              <NestedText>Número de localidades: </NestedText>
               {itinerary.coords.length}
             </DetailsLabel>
             <DetailsButton
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}>
-              <DetailsButtonLabel>Ver paradas</DetailsButtonLabel>
+              <DetailsButtonLabel>Ver localidades</DetailsButtonLabel>
             </DetailsButton>
           </DetailsInfoContainer>
         </DetailsRow>
