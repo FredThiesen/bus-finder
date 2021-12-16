@@ -98,7 +98,6 @@ const Maps = () => {
   };
 
   const renderLink = (link: string, index: number) => {
-    console.log(link);
     return (
       <Text style={{color: 'blue'}} onPress={() => Linking.openURL(link)}>
         Parada {index + 1}

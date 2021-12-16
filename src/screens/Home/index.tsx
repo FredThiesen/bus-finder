@@ -164,10 +164,22 @@ export default function Home() {
     </>
   );
 
+  const initiateRequestTimer = () => {
+    setTimeout(() => {
+      if (loading) {
+        Alert.alert(
+          'Está demorando...',
+          'O servidor está demorando muito para responder. Aguarde...',
+        );
+      }
+    }, 5000);
+  };
+
   useEffect(() => {
     setLoading(true);
     getBusLines();
     getMinibusLines();
+    initiateRequestTimer();
   }, []);
 
   useEffect(() => {
