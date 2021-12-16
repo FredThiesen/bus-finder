@@ -99,10 +99,7 @@ export const LineCardText = styled(Text)<CardProps>`
   font-size: ${props => (props.fontSize ? props.fontSize : '14px')};
   color: ${props => (props.color ? props.color : COLORS.neutralBlack)};
   font-weight: normal;
-  /* padding-left: 10px;
-  padding-right: 10px; */
   width: 100%;
-  max-width: 100%;
 `;
 
 export const NestedText = styled(Text)`

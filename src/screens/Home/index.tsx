@@ -265,36 +265,52 @@ export default function Home() {
           />
         )}
 
-        {isMinibusTabActive && (
-          <FlatList
-            data={filteredMinibusLines}
-            renderItem={({item, index}) => renderLine(item, index)}
-            keyExtractor={item => item.id}
-            maxToRenderPerBatch={10}
-            initialNumToRender={10}
-            removeClippedSubviews
-          />
-        )}
-        {isBusTabActive && (
-          <FlatList
-            data={filteredBusLines}
-            renderItem={({item, index}) => renderLine(item, index)}
-            keyExtractor={item => item.id}
-            maxToRenderPerBatch={10}
-            initialNumToRender={10}
-            removeClippedSubviews
-          />
-        )}
-        {isGeralTabActive && (
-          <FlatList
-            data={filteredMergedLines}
-            renderItem={({item, index}) => renderLine(item, index)}
-            keyExtractor={item => item.id}
-            initialNumToRender={30}
-            maxToRenderPerBatch={10}
-            removeClippedSubviews
-          />
-        )}
+        {isMinibusTabActive &&
+          (filteredMinibusLines.length > 0 ? (
+            <FlatList
+              data={filteredMinibusLines}
+              renderItem={({item, index}) => renderLine(item, index)}
+              keyExtractor={item => item.id}
+              maxToRenderPerBatch={10}
+              initialNumToRender={10}
+              removeClippedSubviews
+            />
+          ) : (
+            !loading && (
+              <LineCardText>Nenhum resultado para '{searchValue}'</LineCardText>
+            )
+          ))}
+
+        {isBusTabActive &&
+          (filteredBusLines.length > 0 ? (
+            <FlatList
+              data={filteredBusLines}
+              renderItem={({item, index}) => renderLine(item, index)}
+              keyExtractor={item => item.id}
+              maxToRenderPerBatch={10}
+              initialNumToRender={10}
+              removeClippedSubviews
+            />
+          ) : (
+            !loading && (
+              <LineCardText>Nenhum resultado para '{searchValue}'</LineCardText>
+            )
+          ))}
+        {isGeralTabActive &&
+          (filteredMergedLines.length > 0 ? (
+            <FlatList
+              data={filteredMergedLines}
+              renderItem={({item, index}) => renderLine(item, index)}
+              keyExtractor={item => item.id}
+              initialNumToRender={30}
+              maxToRenderPerBatch={10}
+              removeClippedSubviews
+            />
+          ) : (
+            !loading && (
+              <LineCardText>Nenhum resultado para '{searchValue}'</LineCardText>
+            )
+          ))}
       </Container>
     </SafeAreaView>
   );
