@@ -41,7 +41,7 @@ MapboxGL.setAccessToken(
   'pk.eyJ1IjoicmljYXJkb3RoaWVzZW4iLCJhIjoiY2tyZ20zZmQyNjduYjJ2bW44emVudHc1MyJ9.jVil7RnJzjTVC6YU_RnokQ',
 );
 
-const Maps = () => {
+export default function Maps() {
   const navigation = useNavigation();
   const itinerary: ItineraryProps = useSelector(
     (state: any) => state.itineraries,
@@ -232,7 +232,7 @@ const Maps = () => {
       </DetailsContainer>
     </Container>
   );
-};
+}
 
 const layerStyle = {
   route: {
@@ -243,4 +243,3 @@ const layerStyle = {
     // lineJoin: 'round',
   },
 };
-export default Maps;

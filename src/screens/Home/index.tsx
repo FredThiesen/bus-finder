@@ -132,7 +132,7 @@ export default function Home() {
     setFilteredMergedLines([...filteredBusLines, ...filteredMinibusLines]);
   };
 
-  const renderLine = (line: BusLineProps | MinibusLineProps) => (
+  const renderLine = (line: BusLineProps | MinibusLineProps, index: number) => (
     <>
       <LineCard>
         <LineCardImageContainer>
@@ -268,7 +268,7 @@ export default function Home() {
         {isMinibusTabActive && (
           <FlatList
             data={filteredMinibusLines}
-            renderItem={({item}) => renderLine(item)}
+            renderItem={({item, index}) => renderLine(item, index)}
             keyExtractor={item => item.id}
             maxToRenderPerBatch={10}
             initialNumToRender={10}
@@ -278,7 +278,7 @@ export default function Home() {
         {isBusTabActive && (
           <FlatList
             data={filteredBusLines}
-            renderItem={({item}) => renderLine(item)}
+            renderItem={({item, index}) => renderLine(item, index)}
             keyExtractor={item => item.id}
             maxToRenderPerBatch={10}
             initialNumToRender={10}
@@ -288,7 +288,7 @@ export default function Home() {
         {isGeralTabActive && (
           <FlatList
             data={filteredMergedLines}
-            renderItem={({item}) => renderLine(item)}
+            renderItem={({item, index}) => renderLine(item, index)}
             keyExtractor={item => item.id}
             initialNumToRender={30}
             maxToRenderPerBatch={10}
