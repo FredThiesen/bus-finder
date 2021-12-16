@@ -162,5 +162,6 @@ export const StyledInput = styled(TextInput)`
   border-radius: 15px;
   font-size: 15px;
   background: ${COLORS.neutralGray};
+  color: ${COLORS.neutralBlack};
   padding: 10px;
 `;

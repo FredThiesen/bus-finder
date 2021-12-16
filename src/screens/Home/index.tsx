@@ -252,6 +252,7 @@ export default function Home() {
               : 'Buscar linha de lotação'}
           </InputLabel>
           <StyledInput
+            placeholderTextColor={'#999'}
             placeholder={'Digite o nome ou o código da linha'}
             onChange={e => setSearchValue(e.nativeEvent.text)}
           />
