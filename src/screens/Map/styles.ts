@@ -1,4 +1,4 @@
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Modal, Text, TouchableOpacity, View} from 'react-native';
 import styled from 'styled-components';
 import {COLORS} from '../../COLORS';
 
@@ -74,6 +74,10 @@ export const DetailsTitle = styled(Text)`
   font-weight: bold;
   margin-top: 5px;
   margin-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  /* text-align: center; */
+  align-self: center;
 `;
 
 export const DetailsRow = styled(View)`
@@ -123,9 +127,9 @@ export const NestedText = styled(Text)`
 export const DetailsButton = styled(TouchableOpacity)`
   height: 45px;
   border-radius: 25px;
-  background: ${COLORS.neutralBlack};
-  width: 50%;
-  margin-bottom: 10px;
+  background: ${COLORS.primary};
+  width: 100%;
+  /* margin-bottom: 10px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,6 +137,18 @@ export const DetailsButton = styled(TouchableOpacity)`
 
 export const DetailsButtonLabel = styled(Text)`
   font-size: 16px;
-  color: ${COLORS.primary};
+  color: ${COLORS.neutralBlack};
   font-weight: bold;
+`;
+
+export const DetailsModal = styled(Modal)`
+  width: 85%;
+  height: 85%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: ${COLORS.white};
+  border-radius: 10px;
+
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
 `;

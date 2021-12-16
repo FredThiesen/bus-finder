@@ -3,6 +3,7 @@ import {useNavigation} from '@react-navigation/core';
 import bbox from '@turf/bbox';
 import {lineString as makeLineString} from '@turf/helpers';
 import React, {useEffect} from 'react';
+import {FlatList, Linking, Modal, Text} from 'react-native';
 import {useSelector} from 'react-redux';
 import BackSvg from '../../assets/svg/back.svg';
 import {COLORS} from '../../COLORS';
@@ -17,6 +18,7 @@ import {
   DetailsImageContainer,
   DetailsInfoContainer,
   DetailsLabel,
+  DetailsModal,
   DetailsRow,
   DetailsTitle,
   InnerMarkerCircle,
@@ -36,6 +38,8 @@ const Maps = () => {
   );
   const [shape, setShape] = React.useState<any>(null);
   const [bounds, setBounds] = React.useState<any>(null);
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [linkArray, setLinkArray] = React.useState<string[]>([]);
 
   const renderShape = () => {
     return (
@@ -83,6 +87,24 @@ const Maps = () => {
     navigation.goBack();
   };
 
+  const initializeLinkArray = () => {
+    const linkArray: string[] = [];
+    itinerary.coords.forEach((coord: any, index: number) => {
+      linkArray.push(
+        `geo:${coord[1]},${coord[0]}q=${coord[1]},${coord[0]}?z=16`,
+      );
+    });
+    setLinkArray(linkArray);
+  };
+
+  const renderLink = (link: string, index: number) => {
+    console.log(link);
+    return (
+      <Text style={{color: 'blue'}} onPress={() => Linking.openURL(link)}>
+        Parada {index + 1}
+      </Text>
+    );
+  };
   useEffect(() => {
     if (itinerary) {
       if (itinerary.coords) {
@@ -97,12 +119,32 @@ const Maps = () => {
         };
         setShape(line);
         setBounds(bounds);
+        initializeLinkArray();
       }
     }
   }, [itinerary]);
 
   return (
     <Container>
+      <DetailsModal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <DetailsContainer>
+          <DetailsTitle>{itinerary.name}</DetailsTitle>
+          <FlatList
+            data={linkArray}
+            renderItem={({item, index}) => renderLink(item, index)}
+            keyExtractor={item => item}
+            maxToRenderPerBatch={10}
+            initialNumToRender={10}
+            removeClippedSubviews
+          />
+        </DetailsContainer>
+      </DetailsModal>
       <MapContainer>
         <ButtonBack onPress={handleReturn}>
           <BackSvg />
@@ -161,11 +203,14 @@ const Maps = () => {
               <NestedText>Número de paradas: </NestedText>
               {itinerary.coords.length}
             </DetailsLabel>
+            <DetailsButton
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}>
+              <DetailsButtonLabel>Ver paradas</DetailsButtonLabel>
+            </DetailsButton>
           </DetailsInfoContainer>
         </DetailsRow>
-        <DetailsButton>
-          <DetailsButtonLabel>Ver paradas</DetailsButtonLabel>
-        </DetailsButton>
       </DetailsContainer>
     </Container>
   );
