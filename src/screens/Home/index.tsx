@@ -79,13 +79,17 @@ export default function Home() {
   };
 
   const handleFetchItinerary = async (id: string) => {
+    setLoading(true);
+    initiateRequestTimer();
     getItineraries(id).then(itineraries => {
       if (itineraries) {
         dispatch(saveItineraries(itineraries));
         //@ts-ignore
         navigation.navigate('maps');
+        setLoading(false);
       } else {
         Alert.alert('Erro', 'Não foi possível carregar o itinerário.');
+        setLoading(false);
       }
     });
   };
@@ -254,7 +258,12 @@ export default function Home() {
 
         {loading && (
           <ActivityIndicator
-            style={{marginTop: 50}}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              alignSelf: 'center',
+              zIndex: 1,
+            }}
             size={100}
             color={COLORS.primary}
           />
