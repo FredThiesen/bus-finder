@@ -1,4 +1,11 @@
-import {Dimensions, Image, Text, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import styled from 'styled-components';
 import {COLORS} from '../../COLORS';
@@ -159,4 +166,11 @@ export const StyledInput = styled(TextInput)`
   background: ${COLORS.neutralGray};
   color: ${COLORS.neutralBlack};
   padding: 10px;
+`;
+
+export const LoadingIndicator = styled(ActivityIndicator)`
+  position: absolute;
+  top: 50%;
+  align-self: center;
+  z-index: 1;
 `;

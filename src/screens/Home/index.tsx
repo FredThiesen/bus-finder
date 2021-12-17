@@ -22,6 +22,7 @@ import {
   LineCardImageContainer,
   LineCardText,
   LineCardTextContainer,
+  LoadingIndicator,
   MapButton,
   MapButtonContainer,
   NestedText,
@@ -256,18 +257,7 @@ export default function Home() {
           />
         </InputContainer>
 
-        {loading && (
-          <ActivityIndicator
-            style={{
-              position: 'absolute',
-              top: '50%',
-              alignSelf: 'center',
-              zIndex: 1,
-            }}
-            size={100}
-            color={COLORS.primary}
-          />
-        )}
+        {loading && <LoadingIndicator size={100} color={COLORS.primary} />}
 
         {isMinibusTabActive &&
           (filteredMinibusLines.length > 0 ? (
