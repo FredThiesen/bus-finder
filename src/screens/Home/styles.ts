@@ -112,7 +112,6 @@ export const CardImage = styled(Image)`
   height: 30px;
   aspect-ratio: 1;
   tint-color: ${COLORS.primary};
-  /* margin-left: 10px; */
 `;
 
 export const MapButtonContainer = styled(View)`
@@ -120,9 +119,7 @@ export const MapButtonContainer = styled(View)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* padding: 1px; */
   width: 20%;
-  /* background: red; */
   height: auto;
 `;
 
@@ -131,8 +128,6 @@ export const MapButton = styled(TouchableOpacity)`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-around;
-  /* width: 100%; */
-  /* height: 100%; */
   padding: 5px;
   elevation: 5;
 `;

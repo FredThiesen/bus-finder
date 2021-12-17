@@ -1,14 +1,10 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useEffect} from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  FlatList,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {ActivityIndicator, Alert, FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
+import MapSvg from '../../assets/svg/map.svg';
+import {COLORS} from '../../COLORS';
 import {BusLineProps} from '../../interfaces/busLineProps';
 import {MinibusLineProps} from '../../interfaces/minibusLineProps';
 import {saveBusLines} from '../../redux/actions/busLinesActions';
@@ -17,7 +13,6 @@ import {saveMinibusLines} from '../../redux/actions/minibusLinesActions';
 import {fetchBusLines} from '../../services/getBusLines';
 import {fetchItineraries} from '../../services/getItineraries';
 import {fetchMinibusLines} from '../../services/getMinibusLines';
-import MapSvg from '../../assets/svg/map.svg';
 import {
   CardImage,
   Container,
@@ -37,7 +32,6 @@ import {
   TabImage,
   TabText,
 } from './styles';
-import {COLORS} from '../../COLORS';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -132,7 +126,7 @@ export default function Home() {
     setFilteredMergedLines([...filteredBusLines, ...filteredMinibusLines]);
   };
 
-  const renderLine = (line: BusLineProps | MinibusLineProps, index: number) => (
+  const renderLine = (line: BusLineProps | MinibusLineProps) => (
     <>
       <LineCard>
         <LineCardImageContainer>
@@ -270,7 +264,7 @@ export default function Home() {
           (filteredMinibusLines.length > 0 ? (
             <FlatList
               data={filteredMinibusLines}
-              renderItem={({item, index}) => renderLine(item, index)}
+              renderItem={({item}) => renderLine(item)}
               keyExtractor={item => item.id}
               maxToRenderPerBatch={10}
               initialNumToRender={10}
@@ -286,7 +280,7 @@ export default function Home() {
           (filteredBusLines.length > 0 ? (
             <FlatList
               data={filteredBusLines}
-              renderItem={({item, index}) => renderLine(item, index)}
+              renderItem={({item}) => renderLine(item)}
               keyExtractor={item => item.id}
               maxToRenderPerBatch={10}
               initialNumToRender={10}
@@ -301,7 +295,7 @@ export default function Home() {
           (filteredMergedLines.length > 0 ? (
             <FlatList
               data={filteredMergedLines}
-              renderItem={({item, index}) => renderLine(item, index)}
+              renderItem={({item}) => renderLine(item)}
               keyExtractor={item => item.id}
               initialNumToRender={30}
               maxToRenderPerBatch={10}

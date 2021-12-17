@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {View, Text} from 'react-native';
 import {BackgroundImage, Button, ButtonLabel, Container} from './styles';
 
 export default function Intro() {

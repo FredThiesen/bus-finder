@@ -32,7 +32,6 @@ export const MarkerContainer = styled(View)<MarkerProps>`
   justify-content: center;
   align-items: center;
   z-index: 1;
-  /* position: relative; */
 `;
 
 export const InnerMarkerCircle = styled(View)`
@@ -86,7 +85,6 @@ export const DetailsTitle = styled(Text)`
   margin-bottom: 5px;
   padding-left: 10px;
   padding-right: 10px;
-  /* text-align: center; */
   align-self: center;
 `;
 
@@ -139,7 +137,7 @@ export const DetailsButton = styled(TouchableOpacity)`
   border-radius: 25px;
   background: ${COLORS.primary};
   width: 100%;
-  /* margin-bottom: 10px; */
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,7 +153,7 @@ export const DetailsModal = styled(Modal)`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: ${COLORS.white}; */
+
   border-radius: 10px;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
 `;
@@ -211,7 +209,6 @@ export const LinkContainer = styled(View)`
   border-bottom-width: 1px;
   border-bottom-color: ${COLORS.neutralBlack};
   padding: 2px;
-  /* padding: 5px; */
 `;
 
 export const LinkLabel = styled(Text)`
@@ -219,7 +216,6 @@ export const LinkLabel = styled(Text)`
   color: ${COLORS.neutralBlack};
   font-weight: normal;
   margin-bottom: 5px;
-  /* margin-left: 10px; */
 `;
 
 export const Link = styled(Text)`

@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/core';
 import bbox from '@turf/bbox';
 import {lineString as makeLineString} from '@turf/helpers';
 import React, {useEffect} from 'react';
-import {FlatList, Linking, Modal, Text} from 'react-native';
+import {FlatList, Linking} from 'react-native';
 import {useSelector} from 'react-redux';
 import BackSvg from '../../assets/svg/back.svg';
 import CloseSvg from '../../assets/svg/x.svg';
@@ -29,7 +29,6 @@ import {
   LinkLabel,
   MapContainer,
   MarkerContainer,
-  MarkerLabel,
   ModalContentContainer,
   ModalInfoContainer,
   ModalInfoLabel,
@@ -77,7 +76,6 @@ export default function Maps() {
           coordinate={itinerary.coords[0]}>
           <MarkerContainer background={COLORS.yellow}>
             <InnerMarkerCircle></InnerMarkerCircle>
-            {/* <MarkerLabel>Início</MarkerLabel> */}
           </MarkerContainer>
         </MapboxGL.PointAnnotation>
         <MapboxGL.PointAnnotation
@@ -97,7 +95,7 @@ export default function Maps() {
     setBounds(null);
     navigation.goBack();
   };
-  // linkArray.push(`geo:0,0?q=${coord[1]},${coord[0]}&z=15`);
+
   const initializeLinkArray = () => {
     const linkArray: string[] = [];
     itinerary.coords.forEach((coord: any, index: number) => {
@@ -185,7 +183,6 @@ export default function Maps() {
               paddingBottom: 70,
             }}
           />
-          {/* {coords && renderCoords()} */}
           {shape && renderShape()}
           {shape && renderMarkers()}
         </MapboxGL.MapView>
@@ -240,6 +237,5 @@ const layerStyle = {
     lineWidth: 5,
     lineOpacity: 1,
     lineCap: 'round',
-    // lineJoin: 'round',
   },
 };

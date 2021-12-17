@@ -30,6 +30,7 @@ export const Button = styled(TouchableOpacity)`
   justify-content: center;
   align-items: center;
 `;
+
 export const ButtonLabel = styled(Text)`
   font-size: 22px;
   font-weight: bold;

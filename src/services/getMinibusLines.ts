@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {BusLineProps} from '../interfaces/busLineProps';
 import {MinibusLineProps} from '../interfaces/minibusLineProps';
 const url =
   'http://www.poatransporte.com.br/php/facades/process.php?a=nc&p=%&t=l';
